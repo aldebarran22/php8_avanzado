@@ -1,0 +1,25 @@
+Opción alternativa: Instalar Composer manualmente sin usar el instalador
+✅ Paso 1: Descargar composer.phar directamente
+Abre este enlace en tu navegador: 👉 https://getcomposer.org/composer-stable.phar
+
+Guarda el archivo como: composer.phar
+
+Colócalo en una carpeta como C:\php8 o cualquier otra que esté en tu PATH.
+
+✅ Paso 2: Usar Composer desde la terminal
+Abre tu terminal en el directorio donde guardaste composer.phar y ejecuta:
+
+bash
+php composer.phar
+¡Y listo! Ya tienes Composer funcionando sin necesidad de pasar por el instalador.
+
+🛠️ (Opcional) Paso 3: Hacer que composer sea un comando global
+Si quieres poder escribir simplemente composer en cualquier terminal:
+
+Crea un archivo llamado composer.bat en C:\php8 con este contenido:
+
+bat
+@php "C:\php8\composer.phar" %*
+Asegúrate de que C:\php8 esté en tu variable de entorno PATH.
+
+¿Quieres que te ayude a configurar el PATH o crear el archivo .bat automáticamente?
