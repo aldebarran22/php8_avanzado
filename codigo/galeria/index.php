@@ -30,7 +30,7 @@ if (isset($_REQUEST['cols'])){
 } else {
     $visible = false;
 }
-
+$cols = '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +58,7 @@ if (isset($_REQUEST['cols'])){
         <h3>Formulario</h3>
         <form action="#" method="post">
             <label for="cols">Columnas</label>
-            <input type="text" name="cols" id="cols">
+            <input type="text" name="cols" id="cols" <?=$cols?>>
             <input type="submit" value="Enviar">
         </form>
         <?php if ($visible){ ?>
@@ -66,7 +66,7 @@ if (isset($_REQUEST['cols'])){
             <?php foreach($fotos as $fila){ ?>
                 <div>
                     <?php foreach($fila as $foto){ ?>
-                        <img src="fotos/<?=$foto?>">
+                        <img src="fotos/<?=$foto?>" alt="<?=$foto?>">
                     <?php } ?>
                 </div>
             <?php } ?>
