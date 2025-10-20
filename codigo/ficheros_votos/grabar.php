@@ -12,7 +12,7 @@ if (isset($_REQUEST['nombre']) ){
 
     if (in_array($nombre, $candidatos)){
         $fich = fopen("votos.txt", "at");
-        fputs($fich, $nombre+"\n");
+        fputs($fich, $nombre."\n");
         fclose($fich);
 
         header('location: index.html');
