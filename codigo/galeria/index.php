@@ -22,8 +22,15 @@ function galeria(array $imagenes, int $numCols): array {
     return array_chunk($imagenes, $numCols);
 }
 
-$fotos = galeria(cargarImagenes(PATH_FOTOS), 3);
-print_r($fotos);
+if (isset($_REQUEST['cols'])){
+    $visible = true;
+    $cols = $_REQUEST['cols'];
+    $fotos = galeria(cargarImagenes(PATH_FOTOS), $cols);
+
+} else {
+    $visible = false;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,14 +55,22 @@ print_r($fotos);
 </head>
 <body>  
     <div id="contenedor">
-        <h3>Galería de imágenes</h3>
-        <?php foreach($fotos as $fila){ ?>
-            <div>
-                <?php foreach($fila as $foto){ ?>
-                    <img src="fotos/<?=$foto?>">
-                <?php } ?>
-            </div>
-        <?php } ?>
+        <h3>Formulario</h3>
+        <form action="#" method="post">
+            <label for="cols">Columnas</label>
+            <input type="text" name="cols" id="cols">
+            <input type="submit" value="Enviar">
+        </form>
+        <?php if ($visible){ ?>
+            <h3>Galería de imágenes</h3>
+            <?php foreach($fotos as $fila){ ?>
+                <div>
+                    <?php foreach($fila as $foto){ ?>
+                        <img src="fotos/<?=$foto?>">
+                    <?php } ?>
+                </div>
+            <?php } ?>
+         <?php } ?>
     </div>
 </body>
 </html>
