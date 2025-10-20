@@ -1,5 +1,15 @@
 <?php 
 $meses = ["ene","feb","mar","abr","may","jun"];
+$texto = "id;empresa|1;Speedy Express|2;United Package|3;Federal Shipping";
+
+$filas = explode("|",$texto);
+$matriz = [];
+foreach($filas as $f){
+    $matriz[] = explode(";", $f);
+}
+//var_dump($matriz);
+//echo "<br>";
+//print_r($matriz);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,5 +25,15 @@ $meses = ["ene","feb","mar","abr","may","jun"];
             <option value="<?=$mes?>"><?=$mes?></option>
         <?php } ?>
     </select>
+    <br>
+    <table>
+        <?php foreach($matriz as $fila){ ?>
+            <tr>
+                <?php foreach($fila as $col){ ?>
+                    <td><?=$col?></td>
+                <?php } ?>
+            </tr>
+        <?php } ?>
+    </table>
 </body>
 </html>
