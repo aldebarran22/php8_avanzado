@@ -2,9 +2,25 @@
     function filtrar($pathPedidos, $pais, $pathSalida){
         // Filtra los pedidos de un pais y los guarda en otro
         // fichero.
+        $checkPais = true;
+
         $fich = fopen($pathPedidos, "rt") or die('Error en el fichero de entrada');
         while ($linea = fgetcsv($fich,1024,';')){
-            print_r($linea);
+            // Comprobar si las cabs tienen una columna pais:
+            if ($checkPais){
+                $pos = array_search('pais', $linea);
+                if (!$pos){
+                    // Viene un fichero que no tiene pais:
+                    return false;
+                }
+                $checkPais = false;
+               
+            } else {
+                // comprobar si el pedido es del pais que buscamos:
+
+
+            }
+            
         }
         fclose($fich);
     }
