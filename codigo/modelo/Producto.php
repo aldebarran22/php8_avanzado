@@ -5,17 +5,24 @@ class Producto {
     // acceso tipo nombre_atributo
     private int $id;
 	private string $nombre;
-	private Categoria $categoria;
+	private ?Categoria $categoria;
 	private float $precio;
     private int $existencias;
 
-	public function __construct(int $id = 0, string $nombre = "", Categoria $categoria = null,  float $precio = 0.0, int $existencias = 0){
+	public function __construct(int $id = 0, string $nombre = "", ?Categoria $categoria=null,  float $precio = 0.0, int $existencias = 0){
 		$this->id = $id;
 		$this->nombre = $nombre;
 		$this->categoria = $categoria;
 		$this->precio = $precio;
         $this->existencias = $existencias;
 	}
+
+    public static function create(array $arr):Producto {
+        $arrCat = array_slice($arr, 2,2);
+        $categoria = Categoria::create($arrCat);
+        return new Producto((int)$arr[0],$arr[1],
+            $categoria, (float)$arr[4],(int)$arr[5]);
+    }
 
 	public function getId():int {
 		return $this->id;
@@ -33,7 +40,7 @@ class Producto {
         $this->nombre = $nombre;
     }
 
-    public function getCategoria(): Categoria {
+    public function getCategoria(): ?Categoria {
         return $this->categoria;
     }
 

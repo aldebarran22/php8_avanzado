@@ -31,6 +31,18 @@ class Categoria {
         return $this->id . " " . $this->nombre;
     }
 
+    public function toArray():array {
+        return [
+            "id"=>$this->id,
+            "nombre"=>$this->nombre
+        ];
+    }
+
+    public static function create(array $cat): Categoria {
+        // Construye una categoria a partir de un array:
+        return new Categoria((int)$cat[0], $cat[1]);
+    }
+
     public function __destruct(){
 
     }
