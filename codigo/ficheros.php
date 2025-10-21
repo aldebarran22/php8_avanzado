@@ -1,10 +1,16 @@
 <?php
-    function filtrar($pathPedidos, $pais, $pathSalida){
+    function filtrar(string $pathPedidos, string $pais, string $pathSalida):bool{
         // Filtra los pedidos de un pais y los guarda en otro
         // fichero.
         $checkPais = true;
+        $pathPais = $pathSalida . '/' . $pais . ".csv";
 
+        // Abrir ficheros: pedidos de lectura
         $fich = fopen($pathPedidos, "rt") or die('Error en el fichero de entrada');
+        
+        // Fichero de salida: pais.csv
+        $fichOut = fopen($pathPais, 'wt');
+
         while ($linea = fgetcsv($fich,1024,';')){
             // Comprobar si las cabs tienen una columna pais:
             if ($checkPais){
@@ -17,12 +23,16 @@
                
             } else {
                 // comprobar si el pedido es del pais que buscamos:
-
-
+                if (strncasecmp($pais, $linea[$pos], strlen($pais))==0){
+                    // Grabar en la salida:
+                    fputcsv($fichOut, $linea, ';');
+                }
             }
-            
+        
         }
         fclose($fich);
+        fclose($fichOut);
+        return true;
     }
 
     filtrar('ficheros/Pedidos.txt', 'Finlandia','out');
