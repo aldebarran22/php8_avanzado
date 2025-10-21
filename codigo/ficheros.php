@@ -3,6 +3,7 @@
         // Filtra los pedidos de un pais y los guarda en otro
         // fichero.
         $checkPais = true;
+        $pos = 0;
         $pathPais = $pathSalida . '/' . $pais . ".csv";
 
         // Abrir ficheros: pedidos de lectura
