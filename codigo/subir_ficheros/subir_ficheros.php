@@ -19,10 +19,16 @@ if (isset($_REQUEST['n'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        div {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <form action="recibir.php" enctype="multipart/form-data" method="post">
-        <input type="hidden" name="MAX_FILE_SIZE" value="20000">
+        <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+        <input type="hidden" name="n" value="<?=$n?>">
         <?php for($i=1; $i <= $n ; $i++){ ?>
             <div>
                 <label for="fich<?=$i?>">Fichero: <?=$i?></label>
