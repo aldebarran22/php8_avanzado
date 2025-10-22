@@ -5,12 +5,22 @@ class ProductoCSV {
 
     public static function save(string $path, array $productos):void{
         // Recibe la colección de productos y graba en un CSV:
+        $cabs = array();
+        $primera = true;
 
         $fich = fopen($path, "wt");
         foreach($productos as $p){
             $fila = $p->toArrayExp();
-            print_r($fila);
-            echo "<hr>";
+
+            if ($primera){
+                // Extraer las claves del array, las utilizamos
+                // como cabeceras del fichero:
+                $cabs = array_keys($fila);
+              
+                fputcsv($fich, $cabs);
+                $primera = false;
+            }
+            
             fputcsv($fich, $fila);
         }
         fclose($fich);
