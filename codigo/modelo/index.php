@@ -1,7 +1,7 @@
 <?php
     require_once __DIR__ . '/Categoria.php';
     require_once __DIR__ . '/Producto.php';
-     require_once __DIR__ . '/ProductoCSV.php';
+    require_once __DIR__ . '/ProductoCSV.php';
 
     // Crear un objeto:
     $cat1 = new Categoria(1, 'Bebidas');
@@ -22,7 +22,9 @@
 
     // Para llamar a un metodo de instancia: objeto->nombreMetodo()
 
-    ProductoCSV::load("productos.csv");
+    $productos = ProductoCSV::load("productos.csv");
+    echo "Productos cargados: " . count($productos);
+    ProductoCSV::save("productos2.csv", $productos);
 
 ?>
 <!DOCTYPE html>

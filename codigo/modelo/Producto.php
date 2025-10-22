@@ -78,5 +78,16 @@ class Producto {
             "existencias"=>$this->getExistencias()        
         ];
     }
+
+     public function toArrayExp():array {
+        return [
+            "id"=>$this->id,
+            "nombre"=>$this->nombre,
+            "idcategoria"=>$this->getCategoria()->getId(),
+            "categoria"=>$this->getCategoria()->getNombre(),
+            "precio"=>$this->getPrecio(),
+            "existencias"=>$this->getExistencias()        
+        ];
+    }
 }
 ?>
