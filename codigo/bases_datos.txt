@@ -1,0 +1,71 @@
+Bases de datos:
+
+Tipos de relaciones (entre entidades)
+- 1 -> 1
+- 1 -> N
+- N <-> M
+
+  Metro
+  Estaciones <-> Lineas
+
+  1 Linea -> N estaciones
+  1 Estacion -> N lineas
+
+  lineas (numero*, color, inicio-fin)
+  estaciones (codigo*, nombre)
+  estaciones-lineas
+  cod_estacion  num_linea
+
+
+
+  estacion      linea
+  avda ameria   7
+
+
+
+
+  libreria: clientes compran libros
+  ventas: fecha, descuento, cantidad
+
+
+Tienda att. telefónica, un cliente llama por tno, le atiende un empleado. Indica
+los productos que quiere comprar. Los productos estan organizados en categorias
+y los surten proveedores, con los productos de cliente se monta un pedido que se
+envia al cliente por una empresa de transporte.
+
+
+
+tabla 1      tabla 2
+1		2
+2		3
+3		4
+
+Joins:
+inner join: tabla1 inner join tabla2 --> (2,2),(3,3)
+left join: tabla1 left join tabla2 -->  (1,null), (2,2), (3,3)
+right join
+
+
+listado de productos con su categoria:
+SELECT c.nombre, p.nombre FROM `productos` p 
+inner join categorias c
+on p.idcategoria = c.id
+order by 1,2;
+
+Categorias que no tienen productos
+SELECT c.nombre, p.nombre FROM categorias c
+left join productos p
+on p.idcategoria = c.id
+where p.id is null;
+
+
+
+
+
+
+
+
+
+
+
+  
