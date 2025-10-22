@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "web/backend/src/"
+        }
+    },
+    "require": {
+        "slim/slim": "^4.0",
+        "slim/psr7": "^1.7"
+    }
+}
