@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/Categoria.php";
+
 class Producto {
 
     // acceso tipo nombre_atributo

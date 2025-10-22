@@ -26,9 +26,8 @@ class BaseDatos implements Operaciones {
 
     function __construct($host, $bd, $user, $pwd){
         try {
-            $pdo = new PDO("mysql:host=$host;dbname=$$bd;charset=utf8mb4", $user, $pwd, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // lanza excepciones en errores
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // devuelve arrays asociativos
+            $pdo = new PDO("mysql:host=$host;dbname=$bd;charset=utf8mb4", $user, $pwd, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // lanza excepciones en errores
             ]);
             $this->pdo = $pdo;
           
@@ -54,7 +53,9 @@ class BaseDatos implements Operaciones {
         // Recuperar los resultados:
         $resultados = $stmt->fetchAll();
         foreach ($resultados as $resul) {
-            $producto = Producto::create($resul);
+            // Extraer los valores del array que viene de la consulta:
+            $fila = array_values($resul);
+            $producto = Producto::create($fila);
             $productos[] = $producto;
         }
         return $productos;
@@ -67,6 +68,6 @@ function operar(Operaciones $op){
 
 }
 
-operar(new Ficheros("productos.csv"));
-//operar(new BaseDatos("localhost","empresa3","root","antonio"));
+//operar(new Ficheros("productos.csv"));
+operar(new BaseDatos("localhost","empresa3","root","antonio"));
 ?>
