@@ -3,7 +3,7 @@ require_once __DIR__ . "/ProductoCSV.php";
 
 interface Operaciones {
 
-    //function grabar(string $path):void;
+    function grabar(array $productos):void;
     function cargar():array;
 }
 
@@ -13,6 +13,10 @@ class Ficheros implements Operaciones {
         
     function __construct(string $path){
         $this->path = $path;
+    }
+
+    function grabar(array $productos):void {
+        ProductosCSV::save($this->path, $productos);
     }
 
     function cargar():array{
@@ -29,12 +33,29 @@ class BaseDatos implements Operaciones {
             $pdo = new PDO("mysql:host=$host;dbname=$bd;charset=utf8mb4", $user, $pwd, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // lanza excepciones en errores
             ]);
-            $this->pdo = $pdo;
-          
+            $this->pdo = $pdo;          
 
         } catch (PDOException $e) {
             throw $e;
         }
+    }
+
+    function grabar(array $productos){
+        $sql = "insert into productos(nombre, idcategoria, precio, existencias) ".
+        " values(:nombre, :idcategoria, :precio, :existencias)";
+
+        // Crear la sentencia con el SQL
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($productos as $p){            
+            $stmt->bindValue(":nombre", $p->getNombre(), PDO::PARAM_STR);
+            $stmt->bindValue(":idcategoria", $p->getCategoria()->getId(),PDO::PARAM_INT);
+            $stmt->bindValue(":precio", $p->getPrecio(), PDO::PARAM_FLOAT);
+            $stmt->bindValue(":existencias", $p->getExistencias(), PDO::PARAM_INT);
+
+            $stmt->execute();
+        }
+
     }
     
     function cargar():array {
