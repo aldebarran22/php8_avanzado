@@ -58,6 +58,19 @@ left join productos p
 on p.idcategoria = c.id
 where p.id is null;
 
+Vale tambien:
+SELECT c.nombre, p.nombre FROM productos p
+right join categorias c
+on p.idcategoria = c.id
+where p.id is null;
+
+SELECT nombre from categorias
+where id not in (select DISTINCT idcategoria from productos); 
+
+Añadir nuevas filas: 
+insert into tabla(columnas) values(valores)
+
+
 
 
 
