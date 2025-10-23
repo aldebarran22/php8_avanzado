@@ -40,8 +40,8 @@ class BaseDatos implements Operaciones {
         }
     }
 
-    function grabar(array $productos){
-        $sql = "insert into productos(nombre, idcategoria, precio, existencias) ".
+    function grabar(array $productos):void{
+        $sql = "insert into productos2(nombre, idcategoria, precio, existencias) ".
         " values(:nombre, :idcategoria, :precio, :existencias)";
 
         // Crear la sentencia con el SQL
@@ -50,7 +50,7 @@ class BaseDatos implements Operaciones {
         foreach ($productos as $p){            
             $stmt->bindValue(":nombre", $p->getNombre(), PDO::PARAM_STR);
             $stmt->bindValue(":idcategoria", $p->getCategoria()->getId(),PDO::PARAM_INT);
-            $stmt->bindValue(":precio", $p->getPrecio(), PDO::PARAM_FLOAT);
+            $stmt->bindValue(":precio", $p->getPrecio(), PDO::PARAM_STR);
             $stmt->bindValue(":existencias", $p->getExistencias(), PDO::PARAM_INT);
 
             $stmt->execute();
@@ -89,6 +89,19 @@ function operar(Operaciones $op){
 
 }
 
-//operar(new Ficheros("productos.csv"));
-operar(new BaseDatos("localhost","empresa3","root","antonio"));
+function importar(string $path, string $host, string $bd, string $usr, string $pwd):void{
+    $ficheros = new Ficheros($path);
+    $productos = $ficheros->cargar();
+
+    if (count($productos) > 0){
+        $baseDatos = new BaseDatos($host, $bd, $usr, $pwd);
+        $baseDatos->grabar($productos);
+        echo count($productos) . " productos importados<br>";
+
+    } else {
+        echo "No se ha podido importar los productos<br>";
+    }
+}
+
+importar("productos.csv", "localhost","empresa3","root","antonio");
 ?>
