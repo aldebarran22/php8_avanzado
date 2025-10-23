@@ -50,23 +50,56 @@ class ProductoDAO  {
     }
 
     function read(int $id):?Producto {
-        return null;
+        $sql = $this->getSQL() . " where p.id=:id";
+
+        // Crear la sentencia con el SQL
+        $stmt = $this->pdo->prepare($sql);            
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+        // Ejecutar:
+        $stmt->execute();
+
+        $fila = $stmt->fetch();
+        if ($fila){
+            $cat = new Categoria((int)$fila['idc'], $fila['nombrec']);
+            
+            return new Producto((int) $fila["idp"], 
+            $fila['nombrep'], $cat, (float)$fila['precio'], 
+            (int)$fila['existencias']);
+
+        } else {
+            return null;
+        }
     }
 
     function delete(int $id):bool {
-        return true;
+        $sql = "delete from productos where id=:id";
+
+        // Crear la sentencia con el SQL
+        $stmt = $this->pdo->prepare($sql);            
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+        // Ejecutar:
+        $stmt->execute();
+
+        $filasAfectadas = $stmt->rowCount();
+        return $filasAfectadas > 0;
     }
 
     function update(Producto $p):bool {
         return true;
     }
 
-    function select():array {
-        $productos = array();
-        $sql = "SELECT p.id as idp, p.nombre as nombrep, " .
+    private function getSQL(){
+        return "SELECT p.id as idp, p.nombre as nombrep, " .
         " c.id as idc, c.nombre as nombrec, p.precio, p.existencias " .
         " FROM productos p inner join categorias c " .
         " on c.id = p.idcategoria";
+    }
+
+    function select():array {
+        $productos = array();
+        $sql = $this->getSQL();
 
         // Crear la sentencia con el SQL
         $stmt = $this->pdo->prepare($sql);
