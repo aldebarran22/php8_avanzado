@@ -16,7 +16,7 @@ class Ficheros implements Operaciones {
     }
 
     function grabar(array $productos):void {
-        ProductosCSV::save($this->path, $productos);
+        ProductoCSV::save($this->path, $productos);
     }
 
     function cargar():array{
@@ -103,5 +103,21 @@ function importar(string $path, string $host, string $bd, string $usr, string $p
     }
 }
 
+function exportar(string $path, string $host, string $bd, string $usr, string $pwd):void{
+    $baseDatos = new BaseDatos($host, $bd, $usr, $pwd);
+    $productos = $baseDatos->cargar();
+
+    if (count($productos) > 0){
+        $ficheros = new Ficheros($path);
+        $ficheros->grabar($productos);
+        echo "Se han exportado: " . count($productos) . " productos<br>";
+
+    } else {
+        echo "No se ha podido exportar los productos<br>";
+    }
+}
+
+
 importar("productos.csv", "localhost","empresa3","root","antonio");
+exportar("productos2.csv", "localhost","empresa3","root","antonio");
 ?>
