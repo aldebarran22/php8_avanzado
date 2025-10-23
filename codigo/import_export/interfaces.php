@@ -39,7 +39,20 @@ class Ficheros implements Operaciones {
     }
 
     function cargar():array{
-        return ProductoCSV::load($this->path);
+        // Extraer la extension del path:
+        $ext = strtolower(pathinfo($this->path, PATHINFO_EXTENSION));
+
+        switch($ext){
+            case "csv":
+                return ProductoCSV::load($this->path);
+               
+            case "json":
+                return ProductoJSON::load($this->path);
+               
+            default:
+                return array();
+
+          }
     }
 }
 
@@ -145,6 +158,12 @@ try {
     $ficheros = new Ficheros("productos.csv");
     $productos = $ficheros->cargar();
     $ficheros->grabar($productos, "productos.json");
+
+    $ficheros = new Ficheros("productos.json");
+    $productos = $ficheros->cargar();
+    echo "Productos: " . count($productos);
+    echo $productos[0];
+
 } catch(Exception $e){
     echo $e->getMessage();
 }

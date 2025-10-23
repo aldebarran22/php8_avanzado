@@ -16,7 +16,21 @@ class ProductoJSON {
     }
 
     public static function load(string $path):array {
-        return array();
+        $productos = array();
+
+        // Leer el fichero de json:
+        $json = file_get_contents($path);
+
+        // Decodificar el json: true es para devolver un array asociativo en vez stdClass
+        $array_json = json_decode($json, true);
+
+        foreach ($array_json as $arr){
+            $c = new Categoria($arr['categoria']['id'], $arr['categoria']['nombre']);
+            $p = new Producto($arr['id'], $arr['nombre'], $c, $arr['precio'],$arr['existencias']);
+            $productos[] = $p;
+        }
+
+        return $productos;
     }
 }
 ?>
