@@ -1,9 +1,10 @@
 <?php
 require_once __DIR__ . "/ProductoCSV.php";
+require_once __DIR__ . "/ProductoJSON.php";
 
 interface Operaciones {
 
-    function grabar(array $productos):void;
+    function grabar(array $productos, ?string $pathOut=null):void;
     function cargar():array;
 }
 
@@ -15,16 +16,21 @@ class Ficheros implements Operaciones {
         $this->path = $path;
     }
 
-    function grabar(array $productos):void {
+    function grabar(array $productos, ?string $pathOut=null):void {
+        if (is_null($pathOut)){
+            throw new Exception("Falta el path de salida");
+        }
+
         // Extraer la extension del path:
-        $ext = strtolower(pathinfo($this->path, PATHINFO_EXTENSION));
+        $ext = strtolower(pathinfo($pathOut, PATHINFO_EXTENSION));
 
         switch($ext){
             case "csv":
-                ProductoCSV::save($this->path, $productos);
+                ProductoCSV::save($pathOut, $productos);
                 break;
 
             case "json":
+                ProductoJSON::save($pathOut, $productos);
                 break;
 
             case "xml":
@@ -53,7 +59,7 @@ class BaseDatos implements Operaciones {
         }
     }
 
-    function grabar(array $productos):void{
+    function grabar(array $productos,  ?string $pathOut=null):void{
         $sql = "insert into productos2(nombre, idcategoria, precio, existencias) ".
         " values(:nombre, :idcategoria, :precio, :existencias)";
 
@@ -130,7 +136,16 @@ function exportar(string $path, string $host, string $bd, string $usr, string $p
     }
 }
 
-
+/*
 importar("productos.csv", "localhost","empresa3","root","antonio");
 exportar("productos2.csv", "localhost","empresa3","root","antonio");
+*/
+
+try {
+    $ficheros = new Ficheros("productos.csv");
+    $productos = $ficheros->cargar();
+    $ficheros->grabar($productos, "productos.json");
+} catch(Exception $e){
+    echo $e->getMessage();
+}
 ?>
