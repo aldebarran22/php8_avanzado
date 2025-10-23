@@ -113,6 +113,24 @@ class ProductoDAO  {
         " on c.id = p.idcategoria";
     }
 
+    function selectCategorias():array {
+        $categorias = array();
+        $sql = "select id, nombre from categorias order by 1";
+
+        // Crear la sentencia con el SQL
+        $stmt = $this->pdo->prepare($sql);
+
+        // Ejecutar el sql
+        $stmt->execute();
+
+        $resultados = $stmt->fetchAll();
+        foreach ($resultados as $fila) {
+            $cat = new Categoria((int)$fila['id'], $fila['nombre']);
+            $categorias[] = $cat;
+        }
+        return $categorias;
+    }
+
     function select():array {
         $productos = array();
         $sql = $this->getSQL();

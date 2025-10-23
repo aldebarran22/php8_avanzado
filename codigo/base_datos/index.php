@@ -40,4 +40,7 @@
         }
 
     }
+
+    $categorias = $dao->selectCategorias();
+    var_dump($categorias);
 ?>
