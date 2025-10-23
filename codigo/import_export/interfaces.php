@@ -16,7 +16,20 @@ class Ficheros implements Operaciones {
     }
 
     function grabar(array $productos):void {
-        ProductoCSV::save($this->path, $productos);
+        // Extraer la extension del path:
+        $ext = strtolower(pathinfo($this->path, PATHINFO_EXTENSION));
+
+        switch($ext){
+            case "csv":
+                ProductoCSV::save($this->path, $productos);
+                break;
+
+            case "json":
+                break;
+
+            case "xml":
+                break;
+        }
     }
 
     function cargar():array{
