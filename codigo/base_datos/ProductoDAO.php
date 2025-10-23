@@ -40,9 +40,13 @@ class ProductoDAO  {
         // Ejecutar:
         $stmt->execute();
 
-        
-    
-        return true;
+        // Obtener el último id:
+        $nuevoId = $this->pdo->lastInsertId();
+        $p->setId($nuevoId);
+
+        // Obtener numero de filas afectadas:
+        $filasAfectadas = $stmt->rowCount();    
+        return $filasAfectadas > 0;
     }
 
     function read(int $id):?Producto {
