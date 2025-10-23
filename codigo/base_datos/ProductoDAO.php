@@ -62,7 +62,7 @@ class ProductoDAO  {
         $fila = $stmt->fetch();
         if ($fila){
             $cat = new Categoria((int)$fila['idc'], $fila['nombrec']);
-            
+
             return new Producto((int) $fila["idp"], 
             $fila['nombrep'], $cat, (float)$fila['precio'], 
             (int)$fila['existencias']);
@@ -87,7 +87,23 @@ class ProductoDAO  {
     }
 
     function update(Producto $p):bool {
-        return true;
+         $sql = "update productos set nombre=:nombre, " .
+         " idcategoria=:idcategoria, precio=:precio, " .
+         " existencias=:existencias where id=:id";
+
+        // Crear la sentencia con el SQL
+        $stmt = $this->pdo->prepare($sql);  
+        $stmt->bindValue(":nombre", $p->getNombre(), PDO::PARAM_STR);
+        $stmt->bindValue(":idcategoria", $p->getCategoria()->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":precio", $p->getPrecio(), PDO::PARAM_STR);
+        $stmt->bindValue(":existencias", $p->getExistencias(), PDO::PARAM_INT);
+        $stmt->bindValue(":id", $p->getId(), PDO::PARAM_INT);
+
+        // Ejecutar:
+        $stmt->execute();
+
+        $filasAfectadas = $stmt->rowCount();
+        return $filasAfectadas > 0;
     }
 
     private function getSQL(){

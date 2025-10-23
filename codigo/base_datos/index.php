@@ -28,5 +28,16 @@
     else {
         echo "Producto: <br>";
         echo $producto;
+
+        // Cambiar campos del objeto y actualizar:
+        $producto->setExistencias(25);
+        $producto->setPrecio(3.5);
+        
+        if ($dao->update($producto)){
+            echo "Producto actualizado<br>";
+        } else {
+            echo "No se ha podido actualizar<br>";
+        }
+
     }
 ?>
