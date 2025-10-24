@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "../data/Producto.php";
+require_once __DIR__ . "/../data/Producto.php";
 
 
 /* operaciones CRUD:

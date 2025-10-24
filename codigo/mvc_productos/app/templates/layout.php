@@ -11,10 +11,10 @@
             <h3>Aplicación MVC Productos</h3>
         </header>
         <nav>
-            <a href="#">Inicio</a>
-            <a href="#">Nuevo Producto</a>
-            <a href="#">Buscar productos</a>
-            <a href="#">Listado de productos</a>
+            <a href="index.php?action=inicio">Inicio</a>
+            <a href="index.php?action=nuevoproducto">Nuevo Producto</a>
+            <a href="index.php?action=buscarproductos">Buscar productos</a>
+            <a href="index.php?action=listarproductos">Listado de productos</a>
         </nav>
         <div id="contenido">
             <?php echo $contenido; ?>
