@@ -171,6 +171,8 @@ class ProductoDAO  {
             $where = "";
         }
 
+        echo "where: $where<br>";
+
         $productos = array();
         $sql = $this->getSQL() . $where;
 
@@ -179,7 +181,7 @@ class ProductoDAO  {
         $stmt = $this->pdo->prepare($sql);
 
         if (str_contains($where, 'idcategoria')){
-            $stmt->bindValue(":idcategoria", $idcat, PDO::PARAM_INT);
+            $stmt->bindValue(":idcat", (int)$idcat, PDO::PARAM_INT);
         }
 
          if (str_contains($where, 'min')){

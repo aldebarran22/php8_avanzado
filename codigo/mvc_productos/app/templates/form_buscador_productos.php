@@ -16,10 +16,10 @@ ob_start();
 
     <label for="precio">Precio</label>
     <div>
-        <label for="minimo">Mínimo</label>
-        <input type="number" name="minimo" id="minimo">
-        <label for="maximo">Máximo</label>
-        <input type="number" name="maximo" id="maximo">
+        <label for="min">Mínimo</label>
+        <input type="number" name="min" id="min">
+        <label for="max">Máximo</label>
+        <input type="number" name="max" id="max">
     </div>
 
     <input type="submit" value="Grabar">
