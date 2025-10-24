@@ -26,6 +26,50 @@ class Producto {
             $categoria, (float)$arr[4],(int)$arr[5]);
     }
 
+    public static function createPost(array $post):Producto{
+        $producto = new Producto();
+
+        if (isset($post['nombre']) && !empty($post['nombre'])){
+            $producto->setNombre($post['nombre']);
+        } else {
+            throw new Exception("Nombre no válido");
+        }
+
+        if (isset($post['categoria']) && !empty($post['categoria'])){
+            if (!is_int($post['categoria']))
+                throw new Exception("Categoría no válida");
+
+            $idcat = (int) $post['categoria'];
+            $cat = new Categoria($idcat, '');
+            $producto->setCategoria($cat);
+
+        } else {
+            throw new Exception("Categoría no válido");
+        }
+
+        if (isset($post['existencias']) && !empty($post['existencias'])){
+            if (!is_int($post['existencias']))
+                throw new Exception("Existencias no válidas");
+
+            $exis = (int) $post['existencias'];
+            $producto->setExistencias($exis);
+            
+        } else {
+            throw new Exception("Existencias no válidas");
+        }
+
+        if (isset($post['precio']) && !empty($post['precio'])){
+            if (!is_float($post['precio']))
+                throw new Exception("Precio no válido");
+
+            $precio = (float) $post['precio'];
+            $producto->setprecio($precio);
+            
+        } else {
+            throw new Exception("Precio no válido");
+        }
+    }
+
 	public function getId():int {
 		return $this->id;
 	}

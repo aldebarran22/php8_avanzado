@@ -4,7 +4,7 @@
 ob_start(); 
 ?>
 <h3>Nuevo Producto</h3>
-<form action="" method="post">
+<form action="index.php?action=grabarproducto" method="post">
     <label for="nombre">Nombre del producto</label>
     <input type="text" name="nombre" id="nombre" required>
 
