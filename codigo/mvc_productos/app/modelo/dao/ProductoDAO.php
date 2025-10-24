@@ -151,12 +151,44 @@ class ProductoDAO  {
         return $categorias;
     }
 
-    function select():array {
+    function select(?int $idcat=null, ?int $min=null, ?int $max=null):array {
+        $filtros = array();
+        if (!is_null($idcat)){
+            $filtros[] = " (p.idcategoria=:idcat) ";
+        }
+
+        if (!is_null($min)){
+            $filtros[] = " (p.precio >= :min) ";
+        }
+
+        if (!is_null($max)){
+             $filtros[] = " (p.precio <= :max) ";
+        }
+
+        if (count($filtros) > 0){
+            $where = " where " . implode("and", $filtros);
+        } else {
+            $where = "";
+        }
+
         $productos = array();
-        $sql = $this->getSQL();
+        $sql = $this->getSQL() . $where;
+
 
         // Crear la sentencia con el SQL
         $stmt = $this->pdo->prepare($sql);
+
+        if (str_contains($where, 'idcategoria')){
+            $stmt->bindValue(":idcategoria", $idcat, PDO::PARAM_INT);
+        }
+
+         if (str_contains($where, 'min')){
+            $stmt->bindValue(":min", $min, PDO::PARAM_STR);
+        }
+
+         if (str_contains($where, 'max')){
+            $stmt->bindValue(":max", $max, PDO::PARAM_STR);
+        }
 
         // Ejecutar el sql
         $stmt->execute();
