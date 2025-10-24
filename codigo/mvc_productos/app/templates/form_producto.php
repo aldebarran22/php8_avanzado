@@ -17,7 +17,7 @@ ob_start();
     </select>
 
     <label for="precio">Precio</label>
-    <input type="number" name="precio" id="precio">
+    <input type="text" name="precio" id="precio">
 
     <label for="existencias">Existencias</label>
     <input type="number" name="existencias" id="existencias">

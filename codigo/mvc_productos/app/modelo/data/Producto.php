@@ -36,8 +36,8 @@ class Producto {
         }
 
         if (isset($post['categoria']) && !empty($post['categoria'])){
-            if (!is_int($post['categoria']))
-                throw new Exception("Categoría no válida");
+            if (!is_numeric($post['categoria']))
+                throw new Exception("Categoría no válida, no int");
 
             $idcat = (int) $post['categoria'];
             $cat = new Categoria($idcat, '');
@@ -48,7 +48,7 @@ class Producto {
         }
 
         if (isset($post['existencias']) && !empty($post['existencias'])){
-            if (!is_int($post['existencias']))
+            if (!is_numeric($post['existencias']))
                 throw new Exception("Existencias no válidas");
 
             $exis = (int) $post['existencias'];
@@ -59,15 +59,20 @@ class Producto {
         }
 
         if (isset($post['precio']) && !empty($post['precio'])){
-            if (!is_float($post['precio']))
-                throw new Exception("Precio no válido");
+            try {
+                $precio = (float) $post['precio'];
 
-            $precio = (float) $post['precio'];
+            } catch(Exception $e){
+                throw new Exception("Precio no válido, no float");
+            }
+
             $producto->setprecio($precio);
             
         } else {
             throw new Exception("Precio no válido");
         }
+
+        return $producto;
     }
 
 	public function getId():int {

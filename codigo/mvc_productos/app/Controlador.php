@@ -31,13 +31,18 @@ class Controller {
         // Graba los datos del producto en la BD
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
-                                       Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
+                try {
+                    $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
+                                        Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
 
-                // Crear un objeto producto con los campos del formulario:
-                $producto = Producto::createPOST($_POST);
-                $dao->create($producto);
-                $this->nuevoProducto();
+                    // Crear un objeto producto con los campos del formulario:
+                    $producto = Producto::createPOST($_POST);
+                    $dao->create($producto);
+                    $this->nuevoProducto();
+                    
+                } catch (Exception $e){
+                    echo $e->getMessage();
+                }
         } 
     }
 

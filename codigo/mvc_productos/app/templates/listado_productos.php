@@ -19,7 +19,7 @@ ob_start();
                 </a>
             </td>
             <td><?=$p->getCategoria()->getNombre()?></td>
-            <td class="der"><?=printf("%.2f", $p->getPrecio())?> &euro;</td>
+            <td class="der"><?=round($p->getPrecio(),2)?> &euro;</td>
             <td class="der"><?=$p->getExistencias()?></td>
         </tr>
     <?php } ?>
