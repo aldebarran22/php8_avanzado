@@ -70,6 +70,24 @@ where id not in (select DISTINCT idcategoria from productos);
 Añadir nuevas filas: 
 insert into tabla(columnas) values(valores)
 
+INSERT INTO `clientes`(`idcliente`, `nombre`, `pais`)
+VALUES ('RRFFT', 'nuevo cliente', 'España');
+
+Actualizar columnas:
+update tabla set col1=valor1, col2=valor2 ... where cond.
+
+Subir un 5% el número de existencias de los productos con menos de 10 existencias:
+UPDATE `productos` SET `existencias`=existencias * 1.05 WHERE existencias < 10;
+
+
+Eliminar filas:
+delete from tabla where cond.
+delete from productos where id=:id
+delete from productos where id = . $id;
+
+
+
+
 
 
 

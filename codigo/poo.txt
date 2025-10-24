@@ -1,0 +1,36 @@
+clase, objeto (instancia), atributos y métodos
+
+personas, 
+
+descripción fisica: 
+altura, peso, color de pelo ...--> atributos
+
+acciones:
+andar(), correr() --> métodos
+
+una persona -> objeto
+
+clase : descripcion 
+
+1 clase -> N objetos
+
+Relaciones entre clases:
+- Composición: un objeto se divide en partes que son objetos de otras clases:
+- Herencia: clases que tiene un conocimiento en comun.
+- Asociación: coche y surtidor
+coche.repostar(surtidor)
+
+
+Figuras
+  - Figuras2D: area
+     Circulo: 
+  - Figuras3D: volumen
+
+
+- Dentro de la clase:
+
+- constructor
+- att: 3 tipos de acceso.
+
+
+
