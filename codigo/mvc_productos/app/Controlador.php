@@ -47,7 +47,7 @@ class Controller {
         $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
                                Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
         $productos = $dao->select();
-        $params = array("productos", $productos);
+        $params = array("productos"=>$productos);
         require __DIR__ . "/templates/listado_productos.php";
     }
 }

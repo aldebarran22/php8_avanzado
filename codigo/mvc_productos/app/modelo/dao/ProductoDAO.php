@@ -163,10 +163,10 @@ class ProductoDAO  {
 
         // Recuperar los resultados:
         $resultados = $stmt->fetchAll();
-        foreach ($resultados as $resul) {
+        foreach ($resultados as $arr) {
             // Extraer los valores del array que viene de la consulta:
-            $fila = array_values($resul);
-            $producto = Producto::create($fila);
+            $c = new Categoria($arr['idc'], $arr['nombrec']);
+            $producto = new Producto($arr['idp'], $arr['nombrep'], $c, $arr['precio'],$arr['existencias']);
             $productos[] = $producto;
         }
         return $productos;

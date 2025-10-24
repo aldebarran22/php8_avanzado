@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . "/../Config.php";
+require_once __DIR__ . "/../modelo/data/Categoria.php";
+require_once __DIR__ . "/../modelo/data/Producto.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
