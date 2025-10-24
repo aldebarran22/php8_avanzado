@@ -151,17 +151,17 @@ class ProductoDAO  {
         return $categorias;
     }
 
-    function select(?int $idcat=null, ?int $min=null, ?int $max=null):array {
+    function select(?string $idcat='', ?string $min='', ?string $max=''):array {
         $filtros = array();
-        if (!is_null($idcat)){
+        if (!empty($idcat)){
             $filtros[] = " (p.idcategoria=:idcat) ";
         }
 
-        if (!is_null($min)){
+        if (!empty($min)){
             $filtros[] = " (p.precio >= :min) ";
         }
 
-        if (!is_null($max)){
+        if (!empty($max)){
              $filtros[] = " (p.precio <= :max) ";
         }
 

@@ -19,7 +19,7 @@ require_once __DIR__ . "/../modelo/data/Producto.php";
         <nav>
             <a href="index.php?action=inicio">Inicio</a>
             <a href="index.php?action=nuevoproducto">Nuevo Producto</a>
-            <a href="index.php?action=buscarproductos">Buscar productos</a>
+            <a href="index.php?action=buscadorproductos">Buscador productos</a>
             <a href="index.php?action=listarproductos">Listado de productos</a>
         </nav>
         <div id="contenido">

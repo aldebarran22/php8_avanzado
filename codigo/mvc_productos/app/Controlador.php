@@ -39,22 +39,41 @@ class Controller {
                     $producto = Producto::createPOST($_POST);
                     $dao->create($producto);
                     $this->nuevoProducto();
-                    
+
                 } catch (Exception $e){
                     echo $e->getMessage();
                 }
         } 
     }
 
-    public function buscadorProductos(){
-        // Muestra el form buscador y necesita las categorias
-        $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
-                               Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
-        $categorias = $dao->selectCategorias();
+    public function buscarProductos(){
+         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                try {
+                    $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
+                                        Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
 
-        // Cargar los parámetros:
-        $params = array("categorias"=>$categorias);
-        require __DIR__ . "/templates/form_buscador_productos.php";
+                    // OJO, limpiar $_POST
+                    $productos = $dao->select($_POST['categoria'], $_POST['min'], $_POST['max']);
+                    $params = array('productos'=>$productos);
+
+                    require __DIR__ . "/templates/listado_productos.php";
+
+                  } catch (Exception $e){
+                    echo $e->getMessage();
+                }
+        } 
+
+    }
+
+    public function buscadorProductos(){
+            // Muestra el form buscador y necesita las categorias
+            $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
+                                Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
+            $categorias = $dao->selectCategorias();
+
+            // Cargar los parámetros:
+            $params = array("categorias"=>$categorias);
+            require __DIR__ . "/templates/form_buscador_productos.php";
     }
 
     public function listarProductos(){

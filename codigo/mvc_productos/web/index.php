@@ -10,7 +10,8 @@
      'inicio' => array('controller' =>'Controller', 'action' =>'inicio'),
      'nuevoproducto' => array('controller' =>'Controller', 'action' =>'nuevoProducto'),
      'grabarproducto' => array('controller' =>'Controller', 'action' =>'grabarProducto'),
-     'buscarproductos' => array('controller' =>'Controller', 'action' =>'buscadorProductos'),
+     'buscadorproductos' => array('controller' =>'Controller', 'action' =>'buscadorProductos'),
+     'buscarproductos'=> array('controller' =>'Controller', 'action' =>'buscarProductos'),
      'listarproductos' => array('controller' =>'Controller', 'action' =>'listarProductos')
  );
 

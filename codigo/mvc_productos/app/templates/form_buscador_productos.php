@@ -4,7 +4,7 @@
 ob_start(); 
 ?>
 <h3>Buscador de Productos</h3>
-<form action="" method="post">
+<form action="index.php?action=buscarproductos" method="post">
 
     <label for="categoria">Categoría</label>
     <select name="categoria" id="categoria">
