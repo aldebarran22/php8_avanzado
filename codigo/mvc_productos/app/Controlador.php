@@ -16,8 +16,8 @@ class Controller {
         // Necesita el listado de categorias
 
         // Solicita los datos al modelo:
-        $dao = new ProductoDAO(Config::mvc_bd_hostname, Config::mvc_bd_nombre, 
-                               Config::mvc_bd_usuario, Config::mvc_bd_clave);
+        $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
+                               Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
         $categorias = $dao->selectCategorias();
 
         // Cargar los parámetros:
