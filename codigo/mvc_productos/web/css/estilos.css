@@ -1,0 +1,11 @@
+#contenedor {
+    margin: 20px auto;
+    width: 90%;
+    text-align: center;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 20px;
+}

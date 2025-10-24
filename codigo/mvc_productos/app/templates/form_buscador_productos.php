@@ -4,6 +4,27 @@
 ob_start(); 
 ?>
 <h3>Buscador de Productos</h3>
+<form action="" method="post">
+
+    <label for="categoria">Categoría</label>
+    <select name="categoria" id="categoria">
+        <option value="0">Seleccione una categoría ...</option>
+        <?php foreach($params['categorias'] as $cat){ ?>
+            <option value="<?=$cat->getId()?>"><?=$cat->getNombre()?></option>
+        <?php } ?>   
+    </select>
+
+    <label for="precio">Precio</label>
+    <div>
+        <label for="minimo">Mínimo</label>
+        <input type="number" name="minimo" id="minimo">
+        <label for="maximo">Máximo</label>
+        <input type="number" name="maximo" id="maximo">
+    </div>
+
+    <input type="submit" value="Grabar">
+    <input type="reset" value="Cancelar">
+</form>
 <?php 
  // Vuelca el buffer a una variable: $contenido 
  $contenido = ob_get_clean(); 

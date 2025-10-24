@@ -33,13 +33,21 @@ class Controller {
 
     public function buscadorProductos(){
         // Muestra el form buscador y necesita las categorias
+        $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
+                               Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
+        $categorias = $dao->selectCategorias();
 
+        // Cargar los parámetros:
+        $params = array("categorias"=>$categorias);
         require __DIR__ . "/templates/form_buscador_productos.php";
     }
 
     public function listarProductos(){
         // Muestra una colección de productos.
-
+        $dao = new ProductoDAO(Config::$mvc_bd_hostname, Config::$mvc_bd_nombre, 
+                               Config::$mvc_bd_usuario, Config::$mvc_bd_clave);
+        $productos = $dao->select();
+        $params = array("productos", $productos);
         require __DIR__ . "/templates/listado_productos.php";
     }
 }
